@@ -1,13 +1,13 @@
 const gridContainer = document.querySelector(".grid-container"); //Grid container of the squares.
 const colorContainer = document.querySelector(".show-color");//Display the color in the page.
-const numberInput = document.querySelector(".number-input");
+// const numberInput = document.querySelector(".number-input");
+const btnGrid = document.querySelector(".grid-btn");
 
 const inputHueColor = document.querySelector(".input-hue");
 const inputSaturation = document.querySelector(".input-saturation");
 const inputLightness = document.querySelector(".input-lightness");
 
 let numberOfColumnsAndRows = 16;
-// let numberOfRows = 16;
 let isDrawing = false;
 
 let hueColor = inputHueColor.value;
@@ -20,30 +20,40 @@ inputHueColor.addEventListener("input", createHslColor);
 inputSaturation.addEventListener("input", createHslColor);
 inputLightness.addEventListener("input", createHslColor );
 
-function createHslColor(event){
-    
-    if(event.target.className === "input-hue"){
-        hueColor = event.target.value;
-    } else if (event.target.className === "input-saturation"){
-        saturationColor = event.target.value;
+btnGrid.addEventListener("click",() => {
+    let changeSquares = parseInt(prompt("Ingrese la cantidad de squares (Maximo 100)"));
+    if(changeSquares <= 100) {
+        drawSquares(gridContainer,changeSquares);
+        gridContainer.style.gridTemplateColumns = `repeat(${changeSquares},1fr)`;
+        gridContainer.style.gridTemplateRows = `repeat(${changeSquares},1fr)`;
     } else {
-        lightnessColor = event.target.value;
+        alert("Ingrese un numero menor a 100");
     }
-    console.log(hueColor);
-    console.log(saturationColor);
-    hslColor = `hsl(${hueColor},${saturationColor}%,${lightnessColor}%)`
-    colorContainer.style.backgroundColor = hslColor;
-}
-
-numberInput.addEventListener("input",(event) => {
-    drawSquares(gridContainer,event.target.value);
-    gridContainer.style.gridTemplateColumns = `repeat(${event.target.value},1fr)`;
-    gridContainer.style.gridTemplateRows = `repeat(${event.target.value},1fr)`;
 });
+
+// numberInput.addEventListener("input",(event) => {
+//     drawSquares(gridContainer,event.target.value);
+//     gridContainer.style.gridTemplateColumns = `repeat(${event.target.value},1fr)`;
+//     gridContainer.style.gridTemplateRows = `repeat(${event.target.value},1fr)`;
+// });
 gridContainer.style.gridTemplateColumns = `repeat(${numberOfColumnsAndRows},1fr)`;
 gridContainer.style.gridTemplateRows = `repeat(${numberOfColumnsAndRows},1fr)`;
 
 drawSquares(gridContainer,numberOfColumnsAndRows) //Draw the squares in the grid.
+
+document.addEventListener("mousedown",(event) => {
+    if(event.target.className == "square"){
+        isDrawing = true;
+    } else {
+        isDrawing = false;
+    }
+})
+document.addEventListener("mouseup",() => {
+    isDrawing = false;
+})
+
+
+
 function drawSquares(parent,number){ 
     while (parent.hasChildNodes()) {         ////Clean the Grid of squares before create new ones.
         parent.removeChild(parent.firstChild)   
@@ -59,15 +69,17 @@ function drawSquares(parent,number){
     parent.appendChild(square);
     }
 }
-
-document.addEventListener("mousedown",(event) => {
-    if(event.target.className == "square"){
-        isDrawing = true;
+function createHslColor(event){
+    if(event.target.className === "input-hue"){
+        hueColor = event.target.value;
+    } else if (event.target.className === "input-saturation"){
+        saturationColor = event.target.value;
     } else {
-        isDrawing = false;
+        lightnessColor = event.target.value;
     }
-})
-document.addEventListener("mouseup",() => {
-    isDrawing = false;
-})
+    console.log(hueColor);
+    console.log(saturationColor);
+    hslColor = `hsl(${hueColor},${saturationColor}%,${lightnessColor}%)`
+    colorContainer.style.backgroundColor = hslColor;
+}
 
