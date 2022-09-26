@@ -45,7 +45,8 @@ body{
     flex-direction: column;
     align-items: center;
 }
-.rainbow-btn{
+.rainbow-btn,
+.clean-btn{
     border: none;
     padding: 12px;
     margin-bottom: 10px;
