@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet"> 
     <title>Etch-a-Sketch</title>
 </head>
 <body>
@@ -14,9 +16,12 @@
         <button class="rainbow-btn">Rainbow mode</button>
         <button class="clean-btn">Clean mode</button>
         <div class="inputs-container">
-            <input class="input-hue" type="number" value="0" min="0" max="360">
-            <input class="input-saturation" type="number" value="100" min="0" max="100">
-            <input class="input-lightness" type="number" value="50" min="0" max="100">
+            <label for="hue-color">Hue Color</label>
+            <input id="hue-color" class="input-hue" type="number" value="0" min="0" max="360">
+            <label for="saturation-color">Saturation</label>
+            <input id="saturation-color" class="input-saturation" type="number" value="100" min="0" max="100">
+            <label id="lightness-color">Lightness</label>
+            <input id="lightness-color" class="input-lightness" type="number" value="50" min="0" max="100">
         </div>
     </div>
     <div class="board-container">
